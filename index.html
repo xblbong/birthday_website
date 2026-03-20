@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Birthday Kiki! 💖</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="selection:bg-pink-500 selection:text-white text-gray-800">
+
+    <!-- Cheerful Background Texture -->
+    <div class="bg-texture"></div>
+    
+    <!-- Cheerful Background Marquee (adds that strong 'Google Student Ambassador' vibrant vibe) -->
+    <div class="bg-marquee-container">
+        <div class="bg-marquee">HAPPY BIRTHDAY KIKI ✨ BEST SISTER EVER 💖 HAPPY BIRTHDAY KIKI ✨ BEST SISTER EVER 💖 </div>
+    </div>
+
+    <!-- Music Button -->
+    <button id="music-btn" class="fixed top-4 right-4 z-50 y2k-button w-14 h-14 flex items-center justify-center text-3xl shadow-lg border-2 border-white hidden">
+        🎵
+    </button>
+    <audio id="bg-music" loop preload="auto">
+        <source src="asset/music/music.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- Custom Popup -->
+    <div id="custom-alert" class="fixed inset-0 bg-black/40 backdrop-blur-md z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div class="glass-panel p-6 text-center rounded-[30px] border-4 border-pink-400 max-w-xs w-11/12 transform scale-75 transition-transform duration-300" id="alert-box">
+            <h3 class="font-y2k text-pink-500 mb-4 text-3xl text-3d-sm tracking-wide" id="alert-title">WAIT!</h3>
+            <p class="font-cute text-[1.4rem] font-bold mb-6 text-purple-900 leading-tight bg-white/50 p-3 rounded-2xl" id="alert-msg">Dih, pede banget! Coba lagi yang bener! 😜</p>
+            <button onclick="closeAlert()" class="y2k-button px-8 py-3 text-2xl w-full font-y2k tracking-widest text-shadow-none">OKEY 🙄</button>
+        </div>
+    </div>
+
+    <!-- Phase 0: Login -->
+    <section id="phase0" class="w-full h-screen flex flex-col items-center justify-center p-4 terminal-container absolute inset-0 zoom-in fade-in">
+        <div class="glass-panel p-8 w-full max-w-sm text-center flex flex-col gap-6 items-center">
+            <h2 class="font-y2k text-3d text-white tracking-wide text-[28px] leading-tight mb-2">Login Princess</h2>
+            <p class="font-cute text-xl text-purple-900 bg-white/60 p-3 rounded-2xl shadow-sm border border-white">
+                Harap konfirmasi nama "Si Princess" untuk mengakses masuk! 💅
+            </p>
+            <input type="text" id="login-input" class="y2k-input w-full text-center text-3xl font-cute font-bold" placeholder="Ketik namamu..." autocomplete="off">
+            <button onclick="checkLogin()" class="y2k-button px-10 py-3 text-2xl font-y2k mt-2 w-full text-shadow-none tracking-widest">MASUK</button>
+        </div>
+    </section>
+
+    <!-- Phase 1: Welcome -->
+    <section id="phase1" class="hidden w-full h-screen flex flex-col items-center justify-center p-4 terminal-container absolute inset-0 zoom-in">
+        <div class="glass-panel p-8 w-full max-w-sm text-center flex flex-col gap-6 items-center">
+            <h1 class="font-y2k text-3d text-white text-[2.8rem] leading-[1.2] drop-shadow-md mb-2">Hii,<br>Princess<br>Kiki! 💖</h1>
+            <p class="font-cute text-xl text-purple-900 bg-white/70 p-4 rounded-2xl shadow-sm border-2 border-white leading-relaxed font-bold">
+                Ada kado manis nih dari Kak Abil buat kamu. Tapi ada tantangannya ya boss! Siap kah?✨
+            </p>
+            <button onclick="switchPhase(1, 2)" class="y2k-button px-10 py-4 text-2xl font-y2k mt-2 w-fit text-shadow-none">Lets Go! 🚀</button>
+        </div>
+    </section>
+
+    <!-- Phase 2: Letter Lock Game (A-B-I-L) -->
+    <section id="phase2" class="hidden w-full h-screen flex flex-col items-center justify-center p-4 terminal-container absolute inset-0 zoom-in">
+        <div class="glass-panel p-8 w-full max-w-sm text-center flex flex-col gap-4 items-center relative">
+            <h2 class="font-y2k text-3d-sm text-white text-3xl drop-shadow-md mb-1">TEBAK NAMA!</h2>
+            
+            <p class="font-cute text-[1.2rem] mb-2 text-purple-900 bg-white/70 p-4 rounded-2xl shadow-sm font-bold border-2 border-white leading-tight">
+                Siapa cewek paling IMUT ter-keren sedunia yang bikin web ini? <br>
+                <span class="text-pink-600 block mt-2 text-md p-1 bg-pink-100 rounded-lg">(Clue: Inisialnya A & 4 Huruf)</span>
+            </p>
+
+            <div class="flex gap-2 justify-center mb-6 mt-2 w-full">
+                <!-- Mini Game Code Lock! -->
+                <input type="text" maxlength="1" id="l1" class="letter-box" value="A" readonly>
+                <input type="text" maxlength="1" id="l2" class="letter-box uppercase">
+                <input type="text" maxlength="1" id="l3" class="letter-box uppercase">
+                <input type="text" maxlength="1" id="l4" class="letter-box uppercase">
+            </div>
+            
+            <button id="next2-btn" class="y2k-button px-10 py-3 w-full text-2xl font-y2k mx-auto text-shadow-none" onclick="checkLetterLock()">CEK JAWABAN</button>
+        </div>
+    </section>
+
+    <!-- Phase 3: Range Slider Trap -->
+    <section id="phase3" class="hidden w-full h-screen flex flex-col items-center justify-center p-4 terminal-container absolute inset-0 zoom-in">
+        <div class="glass-panel p-8 w-full max-w-sm text-center flex flex-col gap-4 relative items-center">
+            <h2 class="font-y2k text-3d-sm text-pink-500 text-[1.7rem] drop-shadow-md mb-2">SEBERAPA IMUT?</h2>
+            
+            <p class="font-cute text-[1.3rem] mb-4 text-purple-900 bg-white/70 p-4 rounded-2xl shadow-sm font-bold border-2 border-white leading-tight">
+                Seberapa IMUT Kak Abil hari ini? Ayo geser parameternya dengan sungguh-sungguh!
+            </p>
+
+            <div class="w-full relative mt-16 mb-8 px-4 h-10">
+               <input type="range" id="beauty-slider" min="1" max="100" value="1" class="w-full y2k-slider relative z-10 block">
+               <div id="slider-val" class="absolute -top-12 left-1/2 -translate-x-1/2 font-y2k text-4xl text-white text-3d-sm z-20 transition-all pointer-events-none">1%</div>
+            </div>
+            
+            <button id="next3-btn" class="y2k-button px-10 py-3 w-full text-2xl font-y2k mx-auto text-shadow-none" onclick="checkSlider()">LANJUT</button>
+            <p id="slider-error" class="hidden text-pink-600 bg-white/90 p-3 rounded-2xl border-2 border-pink-400 font-cute text-[1.4rem] mt-4 font-bold shadow-lg leading-tight scale-100 transition-all">
+                Dih, cuma segitu balabak? Gak bisa klik lanjut lah!
+            </p>
+        </div>
+    </section>
+
+    <!-- Phase 4: Boba Rush -->
+    <section id="phase4" class="hidden w-full h-screen relative select-none touch-none terminal-container absolute inset-0 bg-transparent zoom-in">
+        <div class="absolute inset-0 z-0"></div>
+        <div class="absolute top-6 left-6 font-y2k text-2xl text-pink-500 drop-shadow-md z-20 glass-panel px-6 py-3 border-4 border-white text-3d-sm">
+            <span class="text-white">TARGET:</span> <span id="score" class="text-[2rem] text-yellow-300 drop-shadow-none ml-2">0</span><span class="text-pink-500 text-xl">/7</span>
+        </div>
+        
+        <div class="absolute top-[7.5rem] left-1/2 -translate-x-1/2 z-20 font-cute text-[1.35rem] bg-white/90 px-6 py-3 rounded-[20px] border-[3px] border-pink-400 shadow-xl text-purple-900 text-center font-bold w-[90%] max-w-sm leading-tight">
+            TANGKAP 7 ITEM BOBA!<br><span class="text-pink-600 inline-block mt-1 font-extrabold bg-pink-100 p-1 px-3 rounded-lg">(Hindari item zonk 🤢💀)</span>
+        </div>
+
+        <div id="player" class="absolute bottom-16 left-1/2 -translate-x-1/2 text-7xl drop-shadow-xl transition-transform duration-75 z-20 cursor-none filter hover:brightness-110">👑</div>
+        
+        <div id="game-items-container" class="absolute inset-0 pointer-events-none z-10 overflow-hidden"></div>
+    </section>
+
+    <!-- Phase 5: Tap Tap Tiup Lilin -->
+    <section id="phase5" class="hidden w-full h-screen flex flex-col items-center justify-center p-4 terminal-container absolute inset-0 zoom-in">
+        <div class="glass-panel p-6 w-full max-w-sm text-center flex flex-col gap-4 relative items-center border-[3px] border-white">
+            <h2 class="font-y2k text-3d text-white text-[2rem] drop-shadow-md mb-2">TIUP LILIN! 🕯️</h2>
+            
+            <p class="font-cute text-[1.2rem] mb-2 text-purple-900 bg-white/70 p-3 rounded-2xl shadow-sm font-bold border-2 border-white leading-tight">
+                Sebelum buka kado, TAP/KLIK api lilin ini <span class="text-pink-600">50 kali dalam 10 detik</span> buat bantu matikan!
+            </p>
+
+            <div class="w-full relative mt-2 mb-2 flex flex-col items-center select-none">
+               <div id="candle-fire" class="text-[6rem] cursor-pointer touch-manipulation tap-highlight-transparent" style="filter: drop-shadow(0 0 20px #ff9a9e); -webkit-tap-highlight-color: transparent;">🔥</div>
+               <div class="font-y2k text-4xl text-pink-500 mt-2 text-3d-sm" id="tap-count">0/50</div>
+               <div class="font-cute text-2xl text-purple-800 mt-3 font-bold bg-white/70 px-4 py-2 border-2 border-purple-300 rounded-full shadow-sm">
+                   Sisa Waktu: <span id="tap-time" class="text-pink-600 text-3xl">10</span>s
+               </div>
+            </div>
+            
+            <button id="start-tap-btn" class="y2k-button px-10 py-3 w-full text-2xl font-y2k mx-auto text-shadow-none" onclick="startTapGame()">Mulai Tiup!</button>
+        </div>
+    </section>
+
+    <!-- Phase 6: Grand Reveal -->
+    <section id="phase6" class="hidden w-full h-screen flex items-center justify-center p-4 terminal-container relative z-30 absolute inset-0 zoom-in">
+        <div class="holographic-border w-full max-w-md">
+            <div class="glass-panel p-8 text-center flex flex-col items-center gap-6 relative">
+                <div class="photo-placeholder"></div>
+                
+                <div class="mt-4">
+                    <h2 class="font-y2k text-[2.2rem] md:text-5xl text-white text-3d drop-shadow-xl leading-snug">
+                        Happy Birthday<br><span class="text-yellow-300 block mt-2">Princess Kiki! 🎂</span>
+                    </h2>
+                </div>
+                
+                <div class="bg-white/80 p-6 rounded-[24px] shadow-inner border-[3px] border-white relative z-10 w-full mt-2">
+                    <p class="font-cute font-extrabold text-purple-900 text-[1.6rem] leading-tight">
+                        Semoga makin pinter, lancar rezekinya (biar bisa traktir Kak Abil), dan selalu cantik! (tapi tetep cantikan Kak Abil dikit ya wkwk).
+                    </p>
+                    <div class="bg-gradient-to-r from-pink-100 to-purple-100 border-[3px] border-pink-400 rounded-2xl p-4 mt-6 transform -rotate-2 shadow-sm">
+                        <p class="font-y2k font-bold text-pink-500 text-[1.3rem] tracking-wide text-3d-sm text-shadow-none drop-shadow-sm">Love you, Dek! 💖✨</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,321 @@
+/* Custom CSS for Kiki's Birthday Web */
+
+@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&family=Nunito:wght@700;800;900&display=swap');
+
+:root {
+    --color-pink: #ffb6c1;
+    --color-lavender: #d8b4e2;
+    --color-purple: #9b59b6;
+}
+
+body {
+    background: linear-gradient(135deg, var(--color-pink), var(--color-lavender), #ff9a9e, #fecfef);
+    background-size: 300% 300%;
+    animation: gradient-bg 8s ease infinite;
+    margin: 0;
+    overflow: hidden;
+    touch-action: none;
+    font-family: 'Nunito', sans-serif;
+}
+
+@keyframes gradient-bg {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Background Texture Pattern */
+.bg-texture {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.15;
+    background-image: radial-gradient(#9b59b6 2px, transparent 2px), radial-gradient(#ff69b4 2px, transparent 2px);
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 20px;
+    pointer-events: none;
+}
+
+/* Background Marquee Text */
+.bg-marquee-container {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    width: 100vw;
+    transform: translateY(-50%) rotate(-15deg) scale(1.5);
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.bg-marquee {
+    white-space: nowrap;
+    font-size: 8rem;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.35);
+    font-family: 'Mochiy Pop P One', sans-serif;
+    animation: scroll-left 30s linear infinite;
+    text-shadow: 4px 4px 0 rgba(255, 182, 193, 0.4);
+}
+
+@keyframes scroll-left {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+/* Fonts */
+.font-cute {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+}
+
+.font-y2k {
+    font-family: 'Mochiy Pop P One', sans-serif;
+}
+
+.text-3d {
+    text-shadow: 3px 3px 4px #ff69b4, 6px 6px 2px #a18cd1, 8px 8px 2px rgba(0, 0, 0, 0.1);
+}
+
+.text-3d-sm {
+    text-shadow: 2px 2px 4px #ff69b4, 4px 4px 2px rgba(0, 0, 0, 0.1);
+}
+
+.text-shadow-none {
+    text-shadow: none !important;
+}
+
+/* Glassmorphism */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 10px 40px 0 rgba(155, 89, 182, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.5);
+    border-radius: 35px;
+    position: relative;
+    z-index: 10;
+}
+
+.holographic-border {
+    position: relative;
+    z-index: 10;
+}
+
+.holographic-border::before {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border-radius: 40px;
+    background: linear-gradient(45deg, #a18cd1, #fbc2eb, #ffb199, #00ffff, #a18cd1);
+    z-index: -1;
+    background-size: 300%;
+    animation: holographic 4s linear infinite;
+    box-shadow: 0 0 20px rgba(255, 182, 193, 0.8);
+}
+
+@keyframes holographic {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    100% {
+        background-position: 300% 0%;
+    }
+}
+
+/* Y2K Button */
+.y2k-button {
+    background: linear-gradient(to bottom, #ffffff, #ffd1dc);
+    border: 4px solid #ff69b4;
+    box-shadow: 0 6px 0 #ff69b4, 0 10px 15px rgba(0, 0, 0, 0.2);
+    color: #ff1493;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    text-transform: uppercase;
+    font-weight: 900;
+}
+
+.y2k-button:hover {
+    transform: translateY(2px);
+    box-shadow: 0 4px 0 #ff69b4, 0 6px 10px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(to bottom, #ffffff, #ffb6c1);
+}
+
+.y2k-button:active {
+    transform: translateY(6px);
+    box-shadow: 0 0 0 #ff69b4, 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.y2k-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: translateY(6px);
+    box-shadow: 0 0 0 #ff69b4;
+}
+
+/* Squishy Input */
+.y2k-input {
+    background: #fff;
+    border: 4px solid #d8b4e2;
+    border-radius: 20px;
+    padding: 12px 20px;
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    color: #9b59b6;
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.y2k-input:focus {
+    border-color: #ff69b4;
+    box-shadow: 0 0 0 5px rgba(255, 105, 180, 0.3), inset 0 3px 6px rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
+}
+
+/* Letter Lock Game */
+.letter-box {
+    width: 60px;
+    height: 70px;
+    font-size: 2.2rem;
+    text-align: center;
+    background: #fff;
+    border: 4px solid #d8b4e2;
+    border-radius: 15px;
+    font-family: 'Mochiy Pop P One', sans-serif;
+    color: #ff1493;
+    text-transform: uppercase;
+    box-shadow: 0 5px 0 #d8b4e2;
+    transition: all 0.2s;
+}
+
+.letter-box:focus {
+    border-color: #ff69b4;
+    box-shadow: 0 5px 0 #ff69b4;
+    transform: translateY(-5px);
+    outline: none;
+}
+
+/* Sliders */
+.y2k-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 20px;
+    background: #fff;
+    border: 4px solid #ffb6c1;
+    border-radius: 20px;
+    outline: none;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.y2k-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #ff69b4;
+    cursor: pointer;
+    border: 5px solid #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.1s;
+}
+
+.y2k-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+/* Floating emojis */
+.floating-emoji {
+    position: absolute;
+    animation: float-up linear infinite;
+    opacity: 0.9;
+    z-index: 1;
+    /* Above bg, below cards */
+    pointer-events: none;
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.1));
+}
+
+@keyframes float-up {
+    0% {
+        transform: translateY(110vh) rotate(0deg) scale(0.8);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.9;
+    }
+
+    80% {
+        opacity: 0.9;
+    }
+
+    100% {
+        transform: translateY(-20vh) rotate(360deg) scale(1.2);
+        opacity: 0;
+    }
+}
+
+.terminal-container {
+    position: absolute;
+    z-index: 20;
+}
+
+/* Glowing Border Photo */
+.photo-placeholder {
+    width: 160px;
+    height: 160px;
+    background: url('/asset/images/kiki.png') center/cover;
+    border-radius: 50%;
+    border: 6px solid #fff;
+    box-shadow: 0 0 30px #ff69b4, inset 0 0 15px #ff69b4;
+    animation: float-photo 3s ease-in-out infinite;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes float-photo {
+
+    0%,
+    100% {
+        transform: translateY(0px) rotate(-5deg);
+    }
+
+    50% {
+        transform: translateY(-15px) rotate(5deg);
+    }
+}
+
+/* Animations */
+.fade-in {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: scale(1) !important;
+}
+
+.fade-out {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: scale(0.9) !important;
+    transition: all 0.4s ease-in-out;
+}
+
+.zoom-in {
+    transform: scale(0.9);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
